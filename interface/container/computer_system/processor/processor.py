@@ -6,7 +6,7 @@ from kivy.uix.dropdown import DropDown
 from kivy.properties import ObjectProperty
 from kivy.input.motionevent import MotionEvent
 
-from CS_Emulator.interface import ErrorPopup
+from interface.popups import ErrorPopup
 from .popups import ProcessorAskAddLink
 
 

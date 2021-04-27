@@ -2,7 +2,7 @@ from kivy.uix.tabbedpanel import TabbedPanelItem
 from kivy.uix.boxlayout import BoxLayout
 from kivy.properties import ObjectProperty
 
-from CS_Emulator.interface import ErrorPopup
+from interface.popups import ErrorPopup
 from .queue_builder import QueueBuilder
 
 
@@ -48,10 +48,7 @@ class ResultsTab(TabbedPanelItem):
         QueueBuilder(data, headers, values, results, self.layout).show()
 
     def lab_05(self):
-        if not self.tg_tab.nodes:
-            ErrorPopup('Task graph not found!\nPlease, build task graph first').open()
-            return
-        self.tg_tab.graph.control_work()
+        pass
 
     def lab_06(self):
         pass

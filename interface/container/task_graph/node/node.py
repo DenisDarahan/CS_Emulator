@@ -6,7 +6,7 @@ from kivy.uix.tabbedpanel import TabbedPanelItem
 from kivy.properties import ObjectProperty
 from kivy.input.motionevent import MotionEvent
 
-from CS_Emulator.interface import ErrorPopup
+from interface.popups import ErrorPopup
 from .popups import NodeAskWeight, NodeAskAddEdge
 
 

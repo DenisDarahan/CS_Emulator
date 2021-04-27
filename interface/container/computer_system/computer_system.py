@@ -4,7 +4,7 @@ from kivy.uix.label import Label
 from kivy.properties import ObjectProperty
 
 from CS_Emulator.graph import Graph
-from CS_Emulator.interface import ErrorPopup
+from interface.popups import ErrorPopup
 from .processor import Processor
 from .link import Link, AskAddLink
 from .popups import ComputerSystemSave, ComputerSystemSaveName, ComputerSystemLoadName

@@ -7,7 +7,7 @@ from .task_graph import TaskGraphTab
 from .computer_system import ComputerSystemTab
 from .modeling import ModelingTab
 from .results import ResultsTab
-from CS_Emulator.interface import InfoPopup
+from interface.popups import InfoPopup
 
 
 class Container(BoxLayout):

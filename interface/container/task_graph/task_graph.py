@@ -3,7 +3,7 @@ from kivy.uix.floatlayout import FloatLayout
 from kivy.properties import ObjectProperty
 
 from CS_Emulator.graph import Graph
-from CS_Emulator.interface import ErrorPopup
+from interface.popups import ErrorPopup
 from .node import Node, AskAddNode
 from .edge import Edge, AskAddEdge
 from .popups import TaskGraphSave, TaskGraphSaveName, TaskGraphLoadName, AskGenerate
