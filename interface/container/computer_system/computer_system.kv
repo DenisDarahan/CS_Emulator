@@ -1,0 +1,138 @@
+#:include interface/container/computer_system/processor/processor.kv
+#:include interface/container/computer_system/link/link.kv
+#:include interface/container/computer_system/popups/popups.kv
+
+
+<ComputerSystemTab>:
+    layout: graph_layout
+    validation: validate
+    smp_processors: smp_processors_count
+    smp_banks: smp_banks_count
+
+    text: 'Computer System'
+    font_size: 40
+
+    BoxLayout:
+        spacing: 5
+
+        BoxLayout:
+            size: self.size
+
+            FloatLayout:
+                id: graph_layout
+                size: self.parent.size
+                size_hint: None, None
+                background_color: (0, 0, 0, 0)
+                background_normal: ''
+
+                canvas.before:
+                    Color:
+                        rgba: (1, 1, 1, 1)
+                    Rectangle:
+                        size: self.size
+                        pos: self.pos
+
+        BoxLayout:
+            orientation: 'vertical'
+            size_hint_x: None
+            width: 600 - 6
+            padding: 0, 150
+            spacing: 100
+
+            Label:
+                id: validate
+                size_hint_y: 0.05
+                markup: True
+                text: 'Validation'
+                font_size: 55
+
+            BoxLayout:
+                size_hint_y: 0.08
+                padding: 10, 20
+                spacing: 5
+
+                Label:
+                    text: 'System:'
+                    font_size: 40
+
+                Spinner:
+                    id: system_type
+                    text: root.system_type
+                    font_size: 40
+                    values: root.system_types
+                    on_text: root.set_system_type(self.text)
+
+            BoxLayout:
+                size_hint_y: 0.17
+                orientation: 'vertical'
+                padding: 10, 20
+                spacing: 5
+
+                Label:
+                    text: 'SMP system params'
+                    font_size: 40
+
+                BoxLayout:
+                    padding: 5
+                    spacing: 5
+
+                    Label:
+                        text: 'Processors:'
+                        font_size: 40
+
+                    TextInput:
+                        id: smp_processors_count
+                        input_type: 'number'
+                        input_filter: 'int'
+                        font_size: 40
+                        focus: True
+                        multiline: False
+
+                BoxLayout:
+                    padding: 5
+                    spacing: 5
+
+                    Label:
+                        text: 'Banks:'
+                        font_size: 40
+
+                    TextInput:
+                        id: smp_banks_count
+                        input_type: 'number'
+                        input_filter: 'int'
+                        font_size: 40
+                        focus: True
+                        multiline: False
+
+            BoxLayout:
+                size_hint_y: 0.45
+                orientation: 'vertical'
+                padding: 10, 20
+                spacing: 5
+
+                Label:
+                    text: 'MPP system params'
+                    font_size: 40
+
+                Button:
+                    text: 'Add processor'
+                    font_size: 40
+                    on_release: root.add_processor()
+
+                Button:
+                    text: 'Add link'
+                    font_size: 40
+                    on_release: root.ask_add_link()
+
+                BoxLayout:
+                    spacing: 5
+
+                    Button:
+                        text: 'From file'
+                        font_size: 40
+                        on_release: root.ask_load()
+
+                    Button:
+                        text: 'To file'
+                        font_size: 40
+                        on_release: root.ask_save_name()

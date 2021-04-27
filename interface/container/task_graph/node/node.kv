@@ -1,0 +1,58 @@
+#:include interface/container/task_graph/node/popups/popups.kv
+
+
+<Node>:
+    id: node
+    node: node.__self__
+    node_button: node_button.__self__
+    node_menu: node_menu.__self__
+
+    orientation: 'vertical'
+    size_hint: None, None
+    size: 150, 150
+    pos:
+        self.node_pos if self.node_pos is not None else \
+        (self.node_id * 50, \
+        (self.parent_layout.size[1] - self.size[1] - (self.parent_layout.size[1] - self.size[1]) % 50) - \
+        self.node_id * 50)
+
+    Button:
+        id: node_button
+        size: self.size
+        font_size: 45
+        text: '{} | {}'.format(self.parent.str_id, self.parent.node_weight)
+
+        on_parent: node_menu.dismiss()
+
+        background_color: (0, 0, 0, 0)
+        background_normal: ''
+        canvas.before:
+            Color:
+                rgba: (11/255, 156/255, 49/255, 0.95)
+            RoundedRectangle:
+                size: self.size
+                pos: self.pos
+                radius: [100]
+
+    DropDown:
+        id: node_menu
+        auto_width: False
+        width: 200
+
+        Button:
+            text: 'Change weight'
+            font_size: 30
+            size_hint_y: None
+            on_release: root.ask_weight()
+
+        Button:
+            text: 'Add edge'
+            font_size: 30
+            size_hint_y: None
+            on_release: root.ask_add_edge()
+
+        Button:
+            text: 'Remove node'
+            font_size: 30
+            size_hint_y: None
+            on_release: root.remove()

@@ -1,0 +1,80 @@
+{
+    "graph_type": "Task",
+    "name": "test1",
+    "x_scale": 2,
+    "y_scale": 2,
+    "nodes": [
+        {
+            "node_id": 0,
+            "node_weight": 7,
+            "node_pos": [
+                100,
+                1500.0
+            ]
+        },
+        {
+            "node_id": 1,
+            "node_weight": 2,
+            "node_pos": [
+                100.0,
+                1200.0
+            ]
+        },
+        {
+            "node_id": 2,
+            "node_weight": 9,
+            "node_pos": [
+                550.0,
+                1500.0
+            ]
+        },
+        {
+            "node_id": 4,
+            "node_weight": 8,
+            "node_pos": [
+                650.0,
+                850.0
+            ]
+        },
+        {
+            "node_id": 5,
+            "node_weight": 3,
+            "node_pos": [
+                100,
+                900.0
+            ]
+        }
+    ],
+    "edges": [
+        {
+            "edge_id": 0,
+            "edge_weight": 3,
+            "src_node_id": 0,
+            "dst_node_id": 1
+        },
+        {
+            "edge_id": 1,
+            "edge_weight": 5,
+            "src_node_id": 0,
+            "dst_node_id": 4
+        },
+        {
+            "edge_id": 2,
+            "edge_weight": 1,
+            "src_node_id": 1,
+            "dst_node_id": 5
+        },
+        {
+            "edge_id": 3,
+            "edge_weight": 2,
+            "src_node_id": 2,
+            "dst_node_id": 4
+        },
+        {
+            "edge_id": 4,
+            "edge_weight": 1,
+            "src_node_id": 5,
+            "dst_node_id": 2
+        }
+    ]
+}

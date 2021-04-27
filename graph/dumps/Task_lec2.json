@@ -1,0 +1,148 @@
+{
+    "graph_type": "Task",
+    "name": "lec2",
+    "x_scale": 2,
+    "y_scale": 2,
+    "nodes": [
+        {
+            "node_id": 0,
+            "node_weight": 5,
+            "node_pos": [
+                0,
+                1500.0
+            ]
+        },
+        {
+            "node_id": 1,
+            "node_weight": 4,
+            "node_pos": [
+                600.0,
+                1500.0
+            ]
+        },
+        {
+            "node_id": 2,
+            "node_weight": 2,
+            "node_pos": [
+                1250.0,
+                1500.0
+            ]
+        },
+        {
+            "node_id": 3,
+            "node_weight": 20,
+            "node_pos": [
+                1750.0,
+                1500.0
+            ]
+        },
+        {
+            "node_id": 4,
+            "node_weight": 2,
+            "node_pos": [
+                300.0,
+                1200.0
+            ]
+        },
+        {
+            "node_id": 5,
+            "node_weight": 6,
+            "node_pos": [
+                900.0,
+                1200.0
+            ]
+        },
+        {
+            "node_id": 6,
+            "node_weight": 1,
+            "node_pos": [
+                1450.0,
+                1200.0
+            ]
+        },
+        {
+            "node_id": 7,
+            "node_weight": 3,
+            "node_pos": [
+                450.0,
+                750.0
+            ]
+        },
+        {
+            "node_id": 8,
+            "node_weight": 5,
+            "node_pos": [
+                1050.0,
+                750.0
+            ]
+        }
+    ],
+    "edges": [
+        {
+            "edge_id": 0,
+            "edge_weight": 2,
+            "src_node_id": 0,
+            "dst_node_id": 4
+        },
+        {
+            "edge_id": 1,
+            "edge_weight": 1,
+            "src_node_id": 1,
+            "dst_node_id": 4
+        },
+        {
+            "edge_id": 2,
+            "edge_weight": 3,
+            "src_node_id": 0,
+            "dst_node_id": 7
+        },
+        {
+            "edge_id": 3,
+            "edge_weight": 3,
+            "src_node_id": 4,
+            "dst_node_id": 7
+        },
+        {
+            "edge_id": 4,
+            "edge_weight": 1,
+            "src_node_id": 1,
+            "dst_node_id": 7
+        },
+        {
+            "edge_id": 5,
+            "edge_weight": 2,
+            "src_node_id": 1,
+            "dst_node_id": 5
+        },
+        {
+            "edge_id": 6,
+            "edge_weight": 2,
+            "src_node_id": 4,
+            "dst_node_id": 8
+        },
+        {
+            "edge_id": 7,
+            "edge_weight": 1,
+            "src_node_id": 5,
+            "dst_node_id": 8
+        },
+        {
+            "edge_id": 8,
+            "edge_weight": 4,
+            "src_node_id": 2,
+            "dst_node_id": 6
+        },
+        {
+            "edge_id": 9,
+            "edge_weight": 4,
+            "src_node_id": 6,
+            "dst_node_id": 7
+        },
+        {
+            "edge_id": 10,
+            "edge_weight": 2,
+            "src_node_id": 6,
+            "dst_node_id": 8
+        }
+    ]
+}

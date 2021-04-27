@@ -1,0 +1,26 @@
+<TaskGraphSave>:
+    title: 'Save graph?'
+    title_size: 60
+
+    size_hint: None, None
+    size: 650, 300
+
+    BoxLayout:
+        padding: 25
+        spacing: 10
+
+        Button:
+            text: 'Yes'
+            font_size: 50
+            text_size: self.size
+            halign: 'center'
+            valign: 'middle'
+            on_release: root.save()
+
+        Button:
+            text: 'No'
+            font_size: 50
+            text_size: self.size
+            halign: 'center'
+            valign: 'middle'
+            on_release: root.skip()

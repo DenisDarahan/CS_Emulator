@@ -1,0 +1,32 @@
+{
+    "graph_type": "System",
+    "name": "sys1",
+    "x_scale": 2,
+    "y_scale": 2,
+    "nodes": [
+        {
+            "node_id": 0,
+            "node_weight": 0,
+            "node_pos": [
+                0,
+                1500.0
+            ]
+        },
+        {
+            "node_id": 1,
+            "node_weight": 0,
+            "node_pos": [
+                350.0,
+                1500.0
+            ]
+        }
+    ],
+    "edges": [
+        {
+            "edge_id": 0,
+            "edge_weight": 0,
+            "src_node_id": 1,
+            "dst_node_id": 0
+        }
+    ]
+}

@@ -1,0 +1,16 @@
+<TaskLabel>:
+    size_hint: None, None
+    size: 300, 100
+
+    markup: True
+    font_size: 50
+
+    background_normal: ''
+    background_color: (0, 0, 0, 0)
+
+    canvas.before:
+        Color:
+            rgba: (72/255, 91/255, 255/255, 0.8)
+        Rectangle:
+            size: self.size
+            pos: self.pos

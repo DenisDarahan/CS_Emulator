@@ -1,0 +1,40 @@
+#:include interface/container/computer_system/link/popups/popups.kv
+
+
+<Link>:
+    id: link
+    link_button: link_button.__self__
+    link_menu: link_menu.__self__
+
+
+    background_color: (0, 0, 0, 0)
+    background_normal: ''
+
+    pos: min(self.src_proc.pos[0], self.dst_proc.pos[0]) + 75, min(self.src_proc.pos[1], self.dst_proc.pos[1]) + 75
+    size_hint: None, None
+
+    Button:
+        id: link_button
+        background_color: (0, 0, 0, 0)
+        background_normal: ''
+
+        on_parent: link_menu.dismiss()
+        on_release: link_menu.open(self)
+
+        canvas.before:
+            Color:
+                rgba: (0, 0, 0, 1)
+            Line:
+                group: 'line'
+                width: 2
+
+    DropDown:
+        id: link_menu
+        auto_width: False
+        width: 200
+
+        Button:
+            text: 'Remove link'
+            font_size: 30
+            size_hint_y: None
+            on_release: root.remove()

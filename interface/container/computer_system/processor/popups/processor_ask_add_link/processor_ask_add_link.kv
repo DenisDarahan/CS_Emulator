@@ -1,0 +1,33 @@
+<ProcessorAskAddLink>:
+    dst_proc_id: ask_proc
+
+    title: 'Enter processor id'
+    title_size: 60
+
+    size_hint: None, None
+    size: 600, 320
+
+    BoxLayout:
+        orientation: 'vertical'
+        padding: 5
+        spacing: 5
+
+        BoxLayout:
+            spacing: 5
+
+            Label:
+                text: 'Processor id:'
+                font_size: 45
+
+            TextInput:
+                id: ask_proc
+                input_type: 'number'
+                input_filter: 'int'
+                focus: True
+                font_size: 50
+                multiline: False
+
+        Button:
+            text: 'Add'
+            font_size: 50
+            on_release: root.add_link()

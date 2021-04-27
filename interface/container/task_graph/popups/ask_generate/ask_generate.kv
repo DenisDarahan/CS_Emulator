@@ -1,0 +1,37 @@
+<AskGenerate>:
+    nodes_number: nodes
+
+    title: 'Graph params'
+    title_size: 60
+
+    size_hint: None, None
+    size: 650, 350
+
+    BoxLayout:
+        orientation: 'vertical'
+        padding: 10
+        spacing: 10
+
+        BoxLayout:
+            padding: 5
+            spacing: 5
+
+            Label:
+                text: 'Nodes:'
+                font_size: 50
+
+            TextInput:
+                id: nodes
+                input_type: 'number'
+                input_filter: 'int'
+                focus: True
+                font_size: 50
+                multiline: False
+
+        Button:
+            text: 'Generate'
+            font_size: 50
+            text_size: self.size
+            halign: 'center'
+            valign: 'middle'
+            on_release: root.generate()

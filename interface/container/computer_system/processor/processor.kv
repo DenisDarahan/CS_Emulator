@@ -1,0 +1,52 @@
+#:include interface/container/computer_system/processor/popups/popups.kv
+
+
+<Processor>:
+    id: processor
+    processor: processor.__self__
+    proc_button: processor_button.__self__
+    proc_menu: processor_menu.__self__
+
+    orientation: 'vertical'
+    size_hint: None, None
+    size: 150, 150
+    pos:
+        self.proc_pos if self.proc_pos is not None else \
+        (self.proc_id * 50, \
+        (self.parent_layout.size[1] - self.size[1] - (self.parent_layout.size[1] - self.size[1]) % 50) - \
+        self.proc_id * 50)
+
+    Button:
+        id: processor_button
+        size: self.size
+        font_size: 45
+        text: self.parent.str_id
+
+        on_parent: processor_menu.dismiss()
+
+        background_color: (0, 0, 0, 0)
+        background_normal: ''
+        canvas.before:
+            Color:
+                rgba: (7/255, 9/255, 224/255, 0.8)
+            RoundedRectangle:
+                size: self.size
+                pos: self.pos
+                radius: [100]
+
+    DropDown:
+        id: processor_menu
+        auto_width: False
+        width: 200
+
+        Button:
+            text: 'Add link'
+            font_size: 30
+            size_hint_y: None
+            on_release: root.ask_add_link()
+
+        Button:
+            text: 'Remove proc'
+            font_size: 30
+            size_hint_y: None
+            on_release: root.remove()

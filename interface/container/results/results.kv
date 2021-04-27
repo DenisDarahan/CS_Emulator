@@ -1,0 +1,67 @@
+#:include interface/container/results/queue_builder/queue_builder.kv
+#:include interface/container/results/table_labels/table_labels.kv
+
+
+<ResultsTab>:
+    layout: display_layout
+
+    text: 'Results'
+    font_size: 40
+
+    BoxLayout:
+        spacing: 5
+
+        BoxLayout:
+            id: display_layout
+
+            background_color: (0, 0, 0, 0)
+            background_normal: ''
+
+            canvas.before:
+                Color:
+                    rgba: (1, 1, 1, 1)
+                Rectangle:
+                    size: self.size
+                    pos: self.pos
+
+        BoxLayout:
+            orientation: 'vertical'
+            size_hint_x: None
+            width: 600 - 6
+            padding: 0, 50
+            spacing: 10
+
+            Button:
+                text: 'Lab 02 (2)'
+                font_size: 40
+                on_release: root.lab_02()
+
+            Button:
+                text: 'Lab 03 (4)'
+                font_size: 40
+                on_release: root.lab_03()
+
+            Button:
+                text: 'Lab 04 (8)'
+                font_size: 40
+                on_release: root.lab_04()
+
+            Button:
+                text: 'Lab 05'
+                font_size: 40
+                on_release: root.lab_05()
+
+            Button:
+                text: 'Lab 06'
+                font_size: 40
+                on_release: root.lab_06()
+
+            Button:
+                text: 'Lab 07'
+                font_size: 40
+                on_release: root.lab_07()
+
+            Button:
+                text: 'Lab 08'
+                font_size: 40
+                on_release: root.lab_08()

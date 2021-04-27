@@ -1,0 +1,284 @@
+{
+    "graph_type": "Task",
+    "name": "cw",
+    "x_scale": 2,
+    "y_scale": 2,
+    "nodes": [
+        {
+            "node_id": 0,
+            "node_weight": 5,
+            "node_pos": [
+                0,
+                1500.0
+            ]
+        },
+        {
+            "node_id": 1,
+            "node_weight": 1,
+            "node_pos": [
+                200.0,
+                1500.0
+            ]
+        },
+        {
+            "node_id": 2,
+            "node_weight": 5,
+            "node_pos": [
+                400.0,
+                1500.0
+            ]
+        },
+        {
+            "node_id": 3,
+            "node_weight": 4,
+            "node_pos": [
+                600.0,
+                1500.0
+            ]
+        },
+        {
+            "node_id": 4,
+            "node_weight": 2,
+            "node_pos": [
+                850.0,
+                1500.0
+            ]
+        },
+        {
+            "node_id": 5,
+            "node_weight": 3,
+            "node_pos": [
+                1150.0,
+                1500.0
+            ]
+        },
+        {
+            "node_id": 6,
+            "node_weight": 3,
+            "node_pos": [
+                1400.0,
+                1500.0
+            ]
+        },
+        {
+            "node_id": 7,
+            "node_weight": 5,
+            "node_pos": [
+                1650.0,
+                1500.0
+            ]
+        },
+        {
+            "node_id": 8,
+            "node_weight": 4,
+            "node_pos": [
+                2050.0,
+                1500.0
+            ]
+        },
+        {
+            "node_id": 9,
+            "node_weight": 2,
+            "node_pos": [
+                150.0,
+                1100.0
+            ]
+        },
+        {
+            "node_id": 10,
+            "node_weight": 1,
+            "node_pos": [
+                450.0,
+                1100.0
+            ]
+        },
+        {
+            "node_id": 11,
+            "node_weight": 1,
+            "node_pos": [
+                750.0,
+                1100.0
+            ]
+        },
+        {
+            "node_id": 12,
+            "node_weight": 3,
+            "node_pos": [
+                1050.0,
+                1100.0
+            ]
+        },
+        {
+            "node_id": 13,
+            "node_weight": 1,
+            "node_pos": [
+                1400.0,
+                1100.0
+            ]
+        },
+        {
+            "node_id": 14,
+            "node_weight": 3,
+            "node_pos": [
+                1750.0,
+                1100.0
+            ]
+        },
+        {
+            "node_id": 15,
+            "node_weight": 3,
+            "node_pos": [
+                250.0,
+                650.0
+            ]
+        },
+        {
+            "node_id": 16,
+            "node_weight": 2,
+            "node_pos": [
+                650.0,
+                650.0
+            ]
+        },
+        {
+            "node_id": 17,
+            "node_weight": 3,
+            "node_pos": [
+                1000.0,
+                650.0
+            ]
+        },
+        {
+            "node_id": 18,
+            "node_weight": 1,
+            "node_pos": [
+                1400.0,
+                650.0
+            ]
+        },
+        {
+            "node_id": 19,
+            "node_weight": 2,
+            "node_pos": [
+                1700.0,
+                650.0
+            ]
+        }
+    ],
+    "edges": [
+        {
+            "edge_id": 0,
+            "edge_weight": 4,
+            "src_node_id": 0,
+            "dst_node_id": 9
+        },
+        {
+            "edge_id": 1,
+            "edge_weight": 2,
+            "src_node_id": 1,
+            "dst_node_id": 9
+        },
+        {
+            "edge_id": 2,
+            "edge_weight": 1,
+            "src_node_id": 9,
+            "dst_node_id": 15
+        },
+        {
+            "edge_id": 3,
+            "edge_weight": 3,
+            "src_node_id": 2,
+            "dst_node_id": 15
+        },
+        {
+            "edge_id": 4,
+            "edge_weight": 2,
+            "src_node_id": 3,
+            "dst_node_id": 10
+        },
+        {
+            "edge_id": 5,
+            "edge_weight": 1,
+            "src_node_id": 10,
+            "dst_node_id": 15
+        },
+        {
+            "edge_id": 6,
+            "edge_weight": 2,
+            "src_node_id": 10,
+            "dst_node_id": 16
+        },
+        {
+            "edge_id": 7,
+            "edge_weight": 1,
+            "src_node_id": 11,
+            "dst_node_id": 16
+        },
+        {
+            "edge_id": 8,
+            "edge_weight": 3,
+            "src_node_id": 11,
+            "dst_node_id": 17
+        },
+        {
+            "edge_id": 9,
+            "edge_weight": 2,
+            "src_node_id": 4,
+            "dst_node_id": 11
+        },
+        {
+            "edge_id": 10,
+            "edge_weight": 1,
+            "src_node_id": 4,
+            "dst_node_id": 12
+        },
+        {
+            "edge_id": 11,
+            "edge_weight": 3,
+            "src_node_id": 5,
+            "dst_node_id": 12
+        },
+        {
+            "edge_id": 12,
+            "edge_weight": 2,
+            "src_node_id": 12,
+            "dst_node_id": 18
+        },
+        {
+            "edge_id": 13,
+            "edge_weight": 2,
+            "src_node_id": 6,
+            "dst_node_id": 13
+        },
+        {
+            "edge_id": 14,
+            "edge_weight": 1,
+            "src_node_id": 6,
+            "dst_node_id": 19
+        },
+        {
+            "edge_id": 15,
+            "edge_weight": 3,
+            "src_node_id": 13,
+            "dst_node_id": 18
+        },
+        {
+            "edge_id": 16,
+            "edge_weight": 1,
+            "src_node_id": 7,
+            "dst_node_id": 14
+        },
+        {
+            "edge_id": 17,
+            "edge_weight": 3,
+            "src_node_id": 14,
+            "dst_node_id": 19
+        },
+        {
+            "edge_id": 18,
+            "edge_weight": 2,
+            "src_node_id": 8,
+            "dst_node_id": 19
+        }
+    ]
+}

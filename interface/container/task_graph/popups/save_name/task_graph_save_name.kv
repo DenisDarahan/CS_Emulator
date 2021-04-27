@@ -1,0 +1,27 @@
+<TaskGraphSaveName>:
+    graph_name: name
+
+    title: 'Input graph name'
+    title_size: 60
+
+    size_hint: None, None
+    size: 650, 350
+
+    BoxLayout:
+        orientation: 'vertical'
+        padding: 10
+        spacing: 10
+
+        TextInput:
+            id: name
+            focus: True
+            font_size: 50
+            multiline: False
+
+        Button:
+            text: 'Save'
+            font_size: 50
+            text_size: self.size
+            halign: 'center'
+            valign: 'middle'
+            on_release: root.save()

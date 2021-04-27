@@ -1,0 +1,99 @@
+{
+    "name": "rand",
+    "x_scale": 2,
+    "y_scale": 2,
+    "nodes": [
+        {
+            "node_id": 0,
+            "node_weight": 4,
+            "node_pos": [
+                100,
+                1500.0
+            ]
+        },
+        {
+            "node_id": 1,
+            "node_weight": 6,
+            "node_pos": [
+                150,
+                1300.0
+            ]
+        },
+        {
+            "node_id": 2,
+            "node_weight": 2,
+            "node_pos": [
+                100,
+                1100.0
+            ]
+        },
+        {
+            "node_id": 3,
+            "node_weight": 2,
+            "node_pos": [
+                150,
+                900.0
+            ]
+        },
+        {
+            "node_id": 4,
+            "node_weight": 8,
+            "node_pos": [
+                100,
+                700.0
+            ]
+        },
+        {
+            "node_id": 5,
+            "node_weight": 1,
+            "node_pos": [
+                150,
+                500.0
+            ]
+        }
+    ],
+    "edges": [
+        {
+            "edge_id": 0,
+            "edge_weight": 7,
+            "src_node_id": 0,
+            "dst_node_id": 1
+        },
+        {
+            "edge_id": 1,
+            "edge_weight": 1,
+            "src_node_id": 0,
+            "dst_node_id": 2
+        },
+        {
+            "edge_id": 2,
+            "edge_weight": 8,
+            "src_node_id": 1,
+            "dst_node_id": 2
+        },
+        {
+            "edge_id": 3,
+            "edge_weight": 9,
+            "src_node_id": 1,
+            "dst_node_id": 3
+        },
+        {
+            "edge_id": 4,
+            "edge_weight": 1,
+            "src_node_id": 2,
+            "dst_node_id": 3
+        },
+        {
+            "edge_id": 5,
+            "edge_weight": 6,
+            "src_node_id": 3,
+            "dst_node_id": 4
+        },
+        {
+            "edge_id": 6,
+            "edge_weight": 9,
+            "src_node_id": 4,
+            "dst_node_id": 5
+        }
+    ]
+}

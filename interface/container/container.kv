@@ -1,0 +1,46 @@
+#:include interface/container/task_graph/task_graph.kv
+#:include interface/container/computer_system/computer_system.kv
+#:include interface/container/modeling/modeling.kv
+#:include interface/container/results/results.kv
+
+
+<Container>:
+    padding: 3
+
+    tabbed_panel: tabs
+
+    FloatLayout:
+        padding: 3
+
+        TabbedPanel:
+            id: tabs
+            do_default_tab: False
+            tab_width: (self.size[0] - 600) / 4 - 3
+            tab_height: 100
+
+        BoxLayout:
+            padding: 5
+            spacing: 5
+            pos: self.parent.size[0] - 600, self.parent.size[1] - 105
+            size_hint: None, None
+            size: 600, 100
+
+            Button:
+                text: 'Help'
+                font_size: 40
+                on_release: root.show_help()
+
+            Button:
+                text: 'Exit'
+                font_size: 40
+                on_release: app.stop()
+
+                background_color: (0, 0, 0, 0)
+                background_normal: ''
+
+                canvas:
+                    Color:
+                        rgba: (1, 0, 0, 0.5)
+                    Rectangle:
+                        size: self.size
+                        pos: self.pos

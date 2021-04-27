@@ -1,0 +1,68 @@
+#:include interface/container/task_graph/edge/popups/popups.kv
+
+
+<Edge>:
+    id: edge
+    edge_button: edge_button.__self__
+    edge_menu: edge_menu.__self__
+    vector: edge_layout
+
+
+    background_color: (0, 0, 0, 0)
+    background_normal: ''
+
+    pos: min(self.src_node.pos[0], self.dst_node.pos[0]) + 75, min(self.src_node.pos[1], self.dst_node.pos[1]) + 75
+    size_hint: None, None
+
+    Button:
+        id: edge_button
+        background_color: (0, 0, 0, 0)
+        background_normal: ''
+
+        text: str(root.edge_weight)
+        underline: True
+        size_hint: None, None
+        size: 60, 50
+        font_size: 40
+        color: (0, 0, 0, 1)
+
+        on_parent: edge_menu.dismiss()
+        on_release: edge_menu.open(self)
+
+    FloatLayout:
+        id: edge_layout
+
+        background_color: (0, 0, 0, 0)
+        background_normal: ''
+
+        canvas.before:
+            PushMatrix
+            Color:
+                rgba: (0, 0, 0, 1)
+            Line:
+                group: 'line'
+                width: 2
+            Rotate:
+                group: 'rotation'
+            Triangle:
+                group: 'triangle'
+
+        canvas.after:
+            PopMatrix
+
+    DropDown:
+        id: edge_menu
+        auto_width: False
+        width: 200
+
+        Button:
+            text: 'Change weight'
+            font_size: 30
+            size_hint_y: None
+            on_release: root.ask_weight()
+
+        Button:
+            text: 'Remove edge'
+            font_size: 30
+            size_hint_y: None
+            on_release: root.remove()

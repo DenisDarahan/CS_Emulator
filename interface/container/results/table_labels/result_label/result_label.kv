@@ -1,0 +1,16 @@
+<ResultLabel>:
+    size_hint: None, None
+    size: 300, 100
+
+    markup: True
+    font_size: 50
+
+    background_normal: ''
+    background_color: (0, 0, 0, 0)
+
+    canvas.before:
+        Color:
+            rgba: (62/255, 165/255, 46/255, 0.9)
+        Rectangle:
+            size: self.size
+            pos: self.pos

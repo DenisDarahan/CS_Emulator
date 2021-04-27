@@ -1,0 +1,66 @@
+#:include interface/container/task_graph/node/node.kv
+#:include interface/container/task_graph/edge/edge.kv
+#:include interface/container/task_graph/popups/popups.kv
+
+
+<TaskGraphTab>:
+    layout: graph_layout
+
+    do_default_tab: True
+    text: 'Task Graph'
+    font_size: 40
+
+    BoxLayout:
+        spacing: 5
+
+        ScrollView:
+            size: self.size
+
+            FloatLayout:
+                id: graph_layout
+                size: self.parent.size
+                size_hint: None, None
+                background_color: (0, 0, 0, 0)
+                background_normal: ''
+
+                canvas.before:
+                    Color:
+                        rgba: (1, 1, 1, 1)
+                    Rectangle:
+                        size: self.size
+                        pos: self.pos
+
+        BoxLayout:
+            orientation: 'vertical'
+            size_hint_x: None
+            width: 600 - 6
+            padding: 0, 400
+            spacing: 5
+
+            Button:
+                text: 'Add node'
+                font_size: 40
+                on_release: root.ask_add_node()
+
+            Button:
+                text: 'Add edge'
+                font_size: 40
+                on_release: root.ask_add_edge()
+
+            BoxLayout:
+                spacing: 5
+
+                Button:
+                    text: 'From file'
+                    font_size: 40
+                    on_release: root.ask_load()
+
+                Button:
+                    text: 'To file'
+                    font_size: 40
+                    on_release: root.ask_save_name()
+
+            Button:
+                text: 'Generate graph'
+                font_size: 40
+                on_release: root.ask_generate()

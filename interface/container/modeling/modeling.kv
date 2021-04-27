@@ -1,0 +1,152 @@
+#:include interface/container/modeling/model_labels/model_labels.kv
+
+
+<ModelingTab>:
+    stats_table: stats
+    time_mark: time
+    acceleration_mark: acceleration
+    efficiency_mark: efficiency
+    links_count: links_count
+    io_proc: io_proc
+    links_duplex: links_duplex
+    data_forwarding: data_forwarding
+    package_size: package_size
+
+    text: 'Modeling'
+    font_size: 40
+
+    BoxLayout:
+        spacing: 5
+
+        BoxLayout:
+            orientation: 'vertical'
+            spacing: 20
+
+            ScrollView:
+                size: self.size
+
+                GridLayout:
+                    id: stats
+                    padding: 30
+                    spacing: 20
+
+                    cols: 1
+                    rows: 1
+
+                    size:
+                        max(self.parent.size[0], 30 * 2 + 300 * self.cols + 20 * (self.cols - 1)), \
+                        max(self.parent.size[1], 30 * 2 + 100 * self.rows + 20 * (self.rows - 1))
+                    size_hint: None, None
+
+                    background_color: (0, 0, 0, 0)
+                    background_normal: ''
+
+                    canvas.before:
+                        Color:
+                            rgba: (1, 1, 1, 1)
+                        Rectangle:
+                            size: self.size
+                            pos: self.pos
+
+            BoxLayout:
+                size_hint_y: 0.05
+                padding: 50, 10
+                spacing: 50
+
+                Label:
+                    id: time
+                    font_size: 50
+                    text: 'Time'
+
+                Label:
+                    id: acceleration
+                    font_size: 50
+                    text: 'Acceleration'
+
+                Label:
+                    id: efficiency
+                    font_size: 50
+                    text: 'Efficiency'
+
+        BoxLayout:
+            orientation: 'vertical'
+            size_hint_x: None
+            width: 600 - 6
+            padding: 0, 400
+            spacing: 50
+
+            BoxLayout:
+                padding: 30, 5
+                spacing: 5
+                size_hint_y: 0.35
+
+                Label:
+                    text: 'Links:'
+                    font_size: 40
+
+                TextInput:
+                    id: links_count
+                    input_type: 'number'
+                    input_filter: 'int'
+                    font_size: 40
+                    focus: True
+                    multiline: False
+
+            BoxLayout:
+                padding: 30, 5
+                spacing: 5
+
+                Label:
+                    text: 'I/O proc:'
+                    font_size: 40
+
+                Switch:
+                    id: io_proc
+                    active: False
+
+            BoxLayout:
+                padding: 30, 5
+                spacing: 5
+
+                Label:
+                    text: 'Duplex links:'
+                    font_size: 40
+
+                Switch:
+                    id: links_duplex
+                    active: False
+
+            BoxLayout:
+                orientation: 'vertical'
+                padding: 30, 15
+                spacing: 20
+
+                BoxLayout:
+                    Label:
+                        text: 'Data forwarding:'
+                        font_size: 40
+
+                    Spinner:
+                        id: data_forwarding
+                        size_hint_x: 0.6
+                        text: root.forwarding_type
+                        font_size: 40
+                        values: root.forwarding_types
+                        on_text: root.set_forwarding_type(self.text)
+
+                BoxLayout:
+                    padding: 0, 10
+                    spacing: 5
+
+                    Label:
+                        text: 'Package size:'
+                        font_size: 40
+
+                    TextInput:
+                        id: package_size
+                        input_type: 'number'
+                        input_filter: 'int'
+                        font_size: 40
+                        focus: True
+                        multiline: False
+                        readonly: data_forwarding.text == 'MSG'

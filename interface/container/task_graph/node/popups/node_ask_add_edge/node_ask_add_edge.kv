@@ -1,0 +1,45 @@
+<NodeAskAddEdge>:
+    dst_node_id: ask_node
+    edge_weight: ask_weight
+
+    title: 'Enter edge id'
+    title_size: 60
+
+    size_hint: None, None
+    size: 600, 400
+
+    BoxLayout:
+        orientation: 'vertical'
+        padding: 5
+        spacing: 5
+
+        BoxLayout:
+            Label:
+                text: 'Node id:'
+                font_size: 50
+
+            TextInput:
+                id: ask_node
+                input_type: 'number'
+                input_filter: 'int'
+                focus: True
+                font_size: 50
+                multiline: False
+
+        BoxLayout:
+            Label:
+                text: 'Weight:'
+                font_size: 50
+
+            TextInput:
+                id: ask_weight
+                input_type: 'number'
+                input_filter: 'int'
+                focus: True
+                font_size: 50
+                multiline: False
+
+        Button:
+            text: 'Add'
+            font_size: 50
+            on_release: root.add_edge()

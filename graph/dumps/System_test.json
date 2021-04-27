@@ -1,0 +1,66 @@
+{
+    "graph_type": "System",
+    "name": "test",
+    "x_scale": 2,
+    "y_scale": 2,
+    "nodes": [
+        {
+            "node_id": 0,
+            "node_weight": 0,
+            "node_pos": [
+                300.0,
+                1450.0
+            ]
+        },
+        {
+            "node_id": 1,
+            "node_weight": 0,
+            "node_pos": [
+                800.0,
+                1450.0
+            ]
+        },
+        {
+            "node_id": 2,
+            "node_weight": 0,
+            "node_pos": [
+                300.0,
+                1000.0
+            ]
+        },
+        {
+            "node_id": 3,
+            "node_weight": 0,
+            "node_pos": [
+                800.0,
+                1000.0
+            ]
+        }
+    ],
+    "edges": [
+        {
+            "edge_id": 0,
+            "edge_weight": 0,
+            "src_node_id": 2,
+            "dst_node_id": 3
+        },
+        {
+            "edge_id": 1,
+            "edge_weight": 0,
+            "src_node_id": 1,
+            "dst_node_id": 3
+        },
+        {
+            "edge_id": 2,
+            "edge_weight": 0,
+            "src_node_id": 0,
+            "dst_node_id": 2
+        },
+        {
+            "edge_id": 3,
+            "edge_weight": 0,
+            "src_node_id": 0,
+            "dst_node_id": 1
+        }
+    ]
+}

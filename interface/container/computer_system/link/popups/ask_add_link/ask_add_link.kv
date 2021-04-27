@@ -1,0 +1,45 @@
+<AskAddLink>:
+    src_proc_id: ask_src_proc
+    dst_proc_id: ask_dst_proc
+
+    title: 'Enter processors ids'
+    title_size: 60
+
+    size_hint: None, None
+    size: 600, 450
+
+    BoxLayout:
+        orientation: 'vertical'
+        padding: 5
+        spacing: 5
+
+        BoxLayout:
+            Label:
+                text: 'Src Proc id:'
+                font_size: 50
+
+            TextInput:
+                id: ask_src_proc
+                input_type: 'number'
+                input_filter: 'int'
+                focus: True
+                font_size: 50
+                multiline: False
+
+        BoxLayout:
+            Label:
+                text: 'Dst Proc id:'
+                font_size: 50
+
+            TextInput:
+                id: ask_dst_proc
+                input_type: 'number'
+                input_filter: 'int'
+                focus: True
+                font_size: 50
+                multiline: False
+
+        Button:
+            text: 'Add'
+            font_size: 50
+            on_release: root.add_link()
