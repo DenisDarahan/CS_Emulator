@@ -1,7 +1,7 @@
 from kivy.app import App
 from kivy.core.window import Window
 
-from CS_Emulator.interface import Container
+from interface.container import Container
 
 
 class LabInterfaceApp(App):

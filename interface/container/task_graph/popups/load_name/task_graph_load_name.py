@@ -5,8 +5,8 @@ from kivy.uix.textinput import TextInput
 from kivy.uix.tabbedpanel import TabbedPanelItem
 from kivy.properties import ObjectProperty
 
-from CS_Emulator.interface import ErrorPopup
-from CS_Emulator.config import DUMP_PATH
+from interface.popups import ErrorPopup
+from config import DUMP_PATH
 
 
 class TaskGraphLoadName(Popup):
@@ -23,7 +23,7 @@ class TaskGraphLoadName(Popup):
         if not name:
             ErrorPopup('File name cannot be empty!').open()
             return
-        if not path.exists(f'{DUMP_PATH}/{self.parent_tab.graph.graph_type}_{name}.json'):
+        if not path.exists(DUMP_PATH / f'{self.parent_tab.graph.graph_type}_{name}.json'):
             ErrorPopup('File not found').open()
             return
 

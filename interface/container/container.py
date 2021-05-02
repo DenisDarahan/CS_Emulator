@@ -2,7 +2,7 @@ from kivy.uix.boxlayout import BoxLayout
 from kivy.uix.tabbedpanel import TabbedPanel
 from kivy.properties import ObjectProperty
 
-from CS_Emulator.graph import Graph
+from graph import Graph
 from .task_graph import TaskGraphTab
 from .computer_system import ComputerSystemTab
 from .modeling import ModelingTab

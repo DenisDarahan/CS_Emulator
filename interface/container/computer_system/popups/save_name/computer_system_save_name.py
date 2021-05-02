@@ -3,7 +3,7 @@ from kivy.uix.textinput import TextInput
 from kivy.uix.tabbedpanel import TabbedPanelItem
 from kivy.properties import ObjectProperty
 
-from CS_Emulator.interface import ErrorPopup
+from interface.popups import ErrorPopup
 
 
 class ComputerSystemSaveName(Popup):

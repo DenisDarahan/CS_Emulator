@@ -1,7 +1,7 @@
 from kivy.uix.popup import Popup
 from kivy.properties import ObjectProperty
 
-from CS_Emulator.interface import ErrorPopup
+from interface.popups import ErrorPopup
 
 
 class EdgeAskWeight(Popup):

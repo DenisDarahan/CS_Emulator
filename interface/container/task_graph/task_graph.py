@@ -2,7 +2,7 @@ from kivy.uix.tabbedpanel import TabbedPanelItem
 from kivy.uix.floatlayout import FloatLayout
 from kivy.properties import ObjectProperty
 
-from CS_Emulator.graph import Graph
+from graph import Graph
 from interface.popups import ErrorPopup
 from .node import Node, AskAddNode
 from .edge import Edge, AskAddEdge
