@@ -6,7 +6,7 @@ import networkx as nx
 from .node import Node
 from .edge import Edge
 from .encoder import Encoder
-from CS_Emulator.config import DUMP_PATH
+from config import DUMP_PATH
 
 
 class Graph:
@@ -152,13 +152,13 @@ class Graph:
             'edges': self.edges
         }
 
-        with open(f'{DUMP_PATH}/{self.graph_type}_{name}.json', 'w') as dump:
+        with open(DUMP_PATH / f'{self.graph_type}_{name}.json', 'w') as dump:
             json.dump(data, dump, ensure_ascii=False, indent=4, cls=Encoder)
 
     def load(self, name: str) -> tuple:
         self.clear()
 
-        with open(f'{DUMP_PATH}/{self.graph_type}_{name}.json', 'r') as dump:
+        with open(DUMP_PATH / f'{self.graph_type}_{name}.json', 'r') as dump:
             graph = json.load(dump)
 
         self.name = graph['name']
