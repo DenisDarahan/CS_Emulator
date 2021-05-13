@@ -139,9 +139,13 @@ class TaskGraphTab(TabbedPanelItem):
     def ask_generate_number(self):
         AskGenerate(self).open()
 
-    def generate(self, nodes_number: int):
+    def generate(self, n_min_weight: int, n_max_weight: int, nodes_number: int, correlation: float,
+                 e_min_weight: int, e_max_weight: int):
         self.clear_graph()
-        self.display_graph(*self.graph.generate(nodes_number, self.layout.size, [self.x_scale, self.y_scale]))
+        self.display_graph(
+            *self.graph.generate(n_min_weight, n_max_weight, nodes_number, correlation, e_min_weight, e_max_weight,
+                                 self.layout.size, [self.x_scale, self.y_scale])
+        )
 
     def display_graph(self, graph: Graph, scale_level: [tuple, list]):
         for node in graph.nodes:

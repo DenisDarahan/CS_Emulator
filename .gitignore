@@ -1,2 +1,4 @@
 __pycache__/
 *.py[cod]
+cs_emulator.prog
+prog_create.sh
