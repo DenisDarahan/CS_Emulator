@@ -63,11 +63,6 @@ class Graph:
     def set_edge_weight(self, edge_id: int, edge_weight: int):
         self.edges[edge_id].weight = edge_weight
 
-    def get_correlation(self):
-        nodes_weight = sum(node.weight for node in self.nodes)
-        edges_weight = sum(edge.weight for edge in self.edges)
-        return nodes_weight / (nodes_weight + edges_weight)
-
     def has_cycles(self) -> bool:
         graph = nx.DiGraph([(edge.src_node.node_id, edge.dst_node.node_id) for edge in self.edges])
         return not nx.is_directed_acyclic_graph(graph)
@@ -86,32 +81,19 @@ class Graph:
         paths = nx.single_source_dijkstra_path_length(graph, 0)
         return not all([dst.node_id in paths for dst in self.nodes])
 
-    def generate(self, n_min_weight: int, n_max_weight: int, nodes_number: int, correlation: float,
-                 e_min_weight: int, e_max_weight: int, layout_size: tuple, scale_level: list, directed: bool = True):
+    def generate(self, nodes_number: int, layout_size: tuple, scale_level: list, directed: bool = True):
         graph = self._generate(nodes_number, directed)
         levels = self.assign_level(graph.adj)
         nodes_positions = self._generate_positions(levels, layout_size, scale_level)
 
+        for src_node_id in sorted(graph):
+            self.add_node(src_node_id, randint(1, 9), nodes_positions[src_node_id])
+
         edge_id = 0
         for src_node_id in graph.adj:
             for dst_node_id in graph.adj[src_node_id]:
-                self.add_edge(edge_id, randint(e_min_weight, e_max_weight), src_node_id, dst_node_id)
+                self.add_edge(edge_id, randint(1, 9), src_node_id, dst_node_id)
                 edge_id += 1
-
-        edges_weight = sum(edge.weight for edge in self.edges)
-        nodes_weight = correlation * edges_weight / (1 - correlation)
-
-        for src_node_id in sorted(graph):
-            current_distance = nodes_weight - sum(node.weight for node in self.nodes)
-
-            if n_min_weight <= current_distance <= n_max_weight:
-                self.add_node(src_node_id, current_distance, nodes_positions[src_node_id])
-                current_distance = 0
-
-            if current_distance == 0:
-                break
-
-            self.add_node(src_node_id, randint(n_min_weight, n_max_weight), nodes_positions[src_node_id])
 
         return self, scale_level
 
@@ -202,7 +184,7 @@ class Graph:
         graph.add_edges_from([(edge.src_node.node_id, edge.dst_node.node_id) for edge in self.edges])
 
         reverse_graph = graph.reverse()
-        result: dict = {'nodes': {src: {} for src in self.nodes}, 'CPL': 0, 'queue': []}
+        result = {'nodes': {src: {} for src in self.nodes}, 'CPL': 0, 'queue': []}
 
         for src in self.nodes:
             destinations = [dst.node_id for dst in self.nodes]
@@ -235,7 +217,7 @@ class Graph:
         graph.add_nodes_from([node.node_id for node in self.nodes])
         graph.add_edges_from([(edge.src_node.node_id, edge.dst_node.node_id) for edge in self.edges])
 
-        result: dict = {'nodes': {src: {} for src in self.nodes}, 'CPL': 0, 'queue': []}
+        result = {'nodes': {src: {} for src in self.nodes}, 'CPL': 0, 'queue': []}
 
         for src in self.nodes:
             destinations = [dst.node_id for dst in self.nodes]
@@ -278,7 +260,7 @@ class Graph:
         graph.add_edges_from([(edge.src_node.node_id, edge.dst_node.node_id) for edge in self.edges])
         graph = graph.reverse()
 
-        result: dict = {'nodes': {src: {} for src in self.nodes}, 'CPL': 0, 'queue': []}
+        result = {'nodes': {src: {} for src in self.nodes}, 'CPL': 0, 'queue': []}
 
         for src in self.nodes:
             destinations = [dst.node_id for dst in self.nodes]
