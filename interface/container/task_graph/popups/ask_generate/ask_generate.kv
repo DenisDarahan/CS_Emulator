@@ -1,16 +1,55 @@
 <AskGenerate>:
+    nodes_min_weight: n_min_weight
+    nodes_max_weight: n_max_weight
     nodes_number: nodes
+    graph_correlation: correlation
+    edges_min_weight: e_min_weight
+    edges_max_weight: e_max_weight
 
     title: 'Graph params'
     title_size: 60
 
     size_hint: None, None
-    size: 650, 350
+    size: 750, 650
 
     BoxLayout:
         orientation: 'vertical'
         padding: 10
         spacing: 10
+
+        BoxLayout:
+            padding: 5
+            spacing: 5
+
+            Label:
+                text: 'Node weights:'
+                font_size: 50
+
+            BoxLayout:
+                spacing: 3
+
+                TextInput:
+                    id: n_min_weight
+                    input_type: 'number'
+                    input_filter: 'int'
+                    focus: True
+                    font_size: 50
+                    multiline: False
+                    hint_text: 'min'
+
+                Label:
+                    text: '-'
+                    font_size: 50
+                    size_hint_x: 0.2
+
+                TextInput:
+                    id: n_max_weight
+                    input_type: 'number'
+                    input_filter: 'int'
+                    focus: True
+                    font_size: 50
+                    multiline: False
+                    hint_text: 'max'
 
         BoxLayout:
             padding: 5
@@ -27,6 +66,56 @@
                 focus: True
                 font_size: 50
                 multiline: False
+
+        BoxLayout:
+            padding: 5
+            spacing: 5
+
+            Label:
+                text: 'Correlation:'
+                font_size: 50
+
+            TextInput:
+                id: correlation
+                input_type: 'number'
+                input_filter: 'float'
+                focus: True
+                font_size: 50
+                multiline: False
+
+        BoxLayout:
+            padding: 5
+            spacing: 5
+
+            Label:
+                text: 'Edge weights:'
+                font_size: 50
+
+            BoxLayout:
+                spacing: 3
+
+                TextInput:
+                    id: e_min_weight
+                    input_type: 'number'
+                    input_filter: 'int'
+                    focus: True
+                    font_size: 50
+                    multiline: False
+                    hint_text: 'min'
+
+                Label:
+                    text: '-'
+                    font_size: 50
+                    size_hint_x: 0.2
+
+                TextInput:
+                    id: e_max_weight
+                    input_type: 'number'
+                    input_filter: 'int'
+                    focus: True
+                    font_size: 50
+                    multiline: False
+                    hint_text: 'max'
 
         Button:
             text: 'Generate'

@@ -10,6 +10,10 @@ from config import DUMP_PATH
 
 
 class Graph:
+    NODE_MIN_WEIGHT: int = 1
+    NODE_MAX_WEIGHT: int = 9
+    EDGE_MIN_WEIGHT: int = 1
+    EDGE_MAX_WEIGHT: int = 9
 
     def __init__(self, graph_type: str):
         self.graph_type = graph_type
@@ -50,6 +54,20 @@ class Graph:
         self.adj_matrix[src_node_id][dst_node_id] = 1
         self.adj_matrix[dst_node_id][src_node_id] = 1
 
+    def add_random_edge(self, min_weight: int, max_weight: int):
+        edges = set((edge.src_node.node_id, edge.dst_node.node_id) for edge in self.edges)
+
+        counter = 0
+        while counter < 999:
+            src = randint(0, len(self.nodes) - 2)
+            dst = randint(src, len(self.nodes) - 1)  # if dst > src cycles cannot be there
+            if src == dst or (src, dst) in edges:
+                counter += 1
+                continue
+
+            self.add_edge(len(self.edges), randint(min_weight, max_weight), src, dst)
+            break
+
     def remove_edge(self, edge_id: int):
         edge = self.edges.pop(edge_id)
 
@@ -62,6 +80,11 @@ class Graph:
 
     def set_edge_weight(self, edge_id: int, edge_weight: int):
         self.edges[edge_id].weight = edge_weight
+
+    def get_correlation(self):
+        nodes_weight = sum(node.weight for node in self.nodes)
+        edges_weight = sum(edge.weight for edge in self.edges)
+        return nodes_weight / (nodes_weight + edges_weight)
 
     def has_cycles(self) -> bool:
         graph = nx.DiGraph([(edge.src_node.node_id, edge.dst_node.node_id) for edge in self.edges])
@@ -81,24 +104,37 @@ class Graph:
         paths = nx.single_source_dijkstra_path_length(graph, 0)
         return not all([dst.node_id in paths for dst in self.nodes])
 
-    def generate(self, nodes_number: int, layout_size: tuple, scale_level: list, directed: bool = True):
+    def generate(self, n_min_weight: int, n_max_weight: int, nodes_number: int, correlation: float,
+                 e_min_weight: int, e_max_weight: int, layout_size: tuple, scale_level: list, directed: bool = True):
         graph = self._generate(nodes_number, directed)
         levels = self.assign_level(graph.adj)
         nodes_positions = self._generate_positions(levels, layout_size, scale_level)
 
         for src_node_id in sorted(graph):
-            self.add_node(src_node_id, randint(1, 9), nodes_positions[src_node_id])
+            self.add_node(src_node_id, randint(n_min_weight, n_max_weight), nodes_positions[src_node_id])
+
+        nodes_weight = sum(node.weight for node in self.nodes)
+        edges_weight = nodes_weight / correlation - nodes_weight
 
         edge_id = 0
+        e_max_weight = e_max_weight if e_max_weight is not None else n_max_weight // correlation + e_min_weight
         for src_node_id in graph.adj:
             for dst_node_id in graph.adj[src_node_id]:
-                self.add_edge(edge_id, randint(1, 9), src_node_id, dst_node_id)
+                if (edges_weight - sum(edge.weight for edge in self.edges)) <= 0:
+                    return self, scale_level
+
+                self.add_edge(edge_id, randint(e_min_weight, e_max_weight), src_node_id, dst_node_id)
                 edge_id += 1
+
+        counter = 0
+        while (edges_weight - sum(edge.weight for edge in self.edges)) > 0 and counter < 5:
+            self.add_random_edge(e_min_weight, e_max_weight)
+            counter += 1
 
         return self, scale_level
 
     def _generate(self, nodes_number: int, directed: bool) -> nx.DiGraph:
-        graph = nx.gnp_random_graph(nodes_number, 0.5, directed=directed)
+        graph = nx.gnp_random_graph(nodes_number, 0.7, directed=directed)
         dag = nx.DiGraph([(src, dst) for (src, dst) in graph.edges() if src < dst])
 
         if not nx.is_directed_acyclic_graph(dag) or set(dag.nodes) != set(range(nodes_number)):
@@ -184,7 +220,7 @@ class Graph:
         graph.add_edges_from([(edge.src_node.node_id, edge.dst_node.node_id) for edge in self.edges])
 
         reverse_graph = graph.reverse()
-        result = {'nodes': {src: {} for src in self.nodes}, 'CPL': 0, 'queue': []}
+        result: dict = {'nodes': {src: {} for src in self.nodes}, 'CPL': 0, 'queue': []}
 
         for src in self.nodes:
             destinations = [dst.node_id for dst in self.nodes]
@@ -217,7 +253,7 @@ class Graph:
         graph.add_nodes_from([node.node_id for node in self.nodes])
         graph.add_edges_from([(edge.src_node.node_id, edge.dst_node.node_id) for edge in self.edges])
 
-        result = {'nodes': {src: {} for src in self.nodes}, 'CPL': 0, 'queue': []}
+        result: dict = {'nodes': {src: {} for src in self.nodes}, 'CPL': 0, 'queue': []}
 
         for src in self.nodes:
             destinations = [dst.node_id for dst in self.nodes]
@@ -260,7 +296,7 @@ class Graph:
         graph.add_edges_from([(edge.src_node.node_id, edge.dst_node.node_id) for edge in self.edges])
         graph = graph.reverse()
 
-        result = {'nodes': {src: {} for src in self.nodes}, 'CPL': 0, 'queue': []}
+        result: dict = {'nodes': {src: {} for src in self.nodes}, 'CPL': 0, 'queue': []}
 
         for src in self.nodes:
             destinations = [dst.node_id for dst in self.nodes]
