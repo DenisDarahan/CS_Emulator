@@ -1,0 +1,179 @@
+<AskStatsParams>:
+    nodes_min_count: n_min_count
+    nodes_max_count: n_max_count
+    nodes_step: n_step
+    correlation_min: c_min
+    correlation_max: c_max
+    correlation_step: c_step
+    nodes_min_weight: n_min_weight
+    nodes_max_weight: n_max_weight
+    graphs_count: g_count
+
+    title: 'Stats params'
+    title_size: 60
+
+    size_hint: None, None
+    size: 800, 800
+
+    BoxLayout:
+        orientation: 'vertical'
+        padding: 10
+        spacing: 10
+
+        BoxLayout:
+            padding: 5
+            spacing: 5
+
+            Label:
+                text: 'Nodes count:'
+                font_size: 50
+
+            BoxLayout:
+                spacing: 3
+
+                TextInput:
+                    id: n_min_count
+                    input_type: 'number'
+                    input_filter: 'int'
+                    focus: True
+                    font_size: 50
+                    multiline: False
+                    hint_text: 'min'
+
+                Label:
+                    text: '-'
+                    font_size: 50
+                    size_hint_x: 0.2
+
+                TextInput:
+                    id: n_max_count
+                    input_type: 'number'
+                    input_filter: 'int'
+                    focus: True
+                    font_size: 50
+                    multiline: False
+                    hint_text: 'max'
+
+        BoxLayout:
+            padding: 5
+            spacing: 5
+
+            Label:
+                text: 'Nodes step:'
+                font_size: 50
+
+            TextInput:
+                id: n_step
+                input_type: 'number'
+                input_filter: 'float'
+                focus: True
+                font_size: 50
+                multiline: False
+
+        BoxLayout:
+            padding: 5
+            spacing: 5
+
+            Label:
+                text: 'Correlation:'
+                font_size: 50
+
+            BoxLayout:
+                spacing: 3
+
+                TextInput:
+                    id: c_min
+                    input_type: 'number'
+                    input_filter: 'float'
+                    focus: True
+                    font_size: 50
+                    multiline: False
+                    hint_text: 'start'
+
+                Label:
+                    text: '-'
+                    font_size: 50
+                    size_hint_x: 0.2
+
+                TextInput:
+                    id: c_max
+                    input_type: 'number'
+                    input_filter: 'float'
+                    focus: True
+                    font_size: 50
+                    multiline: False
+                    hint_text: 'stop'
+
+        BoxLayout:
+            padding: 5
+            spacing: 5
+
+            Label:
+                text: 'Correlation step:'
+                font_size: 50
+
+            TextInput:
+                id: c_step
+                input_type: 'number'
+                input_filter: 'float'
+                focus: True
+                font_size: 50
+                multiline: False
+
+        BoxLayout:
+            padding: 5
+            spacing: 5
+
+            Label:
+                text: 'Node weights:'
+                font_size: 50
+
+            BoxLayout:
+                spacing: 3
+
+                TextInput:
+                    id: n_min_weight
+                    input_type: 'number'
+                    input_filter: 'int'
+                    focus: True
+                    font_size: 50
+                    multiline: False
+                    hint_text: 'min'
+
+                Label:
+                    text: '-'
+                    font_size: 50
+                    size_hint_x: 0.2
+
+                TextInput:
+                    id: n_max_weight
+                    input_type: 'number'
+                    input_filter: 'int'
+                    focus: True
+                    font_size: 50
+                    multiline: False
+                    hint_text: 'max'
+
+        BoxLayout:
+            padding: 5
+            spacing: 5
+
+            Label:
+                text: 'Graphs count:'
+                font_size: 50
+
+            TextInput:
+                id: g_count
+                input_type: 'number'
+                input_filter: 'float'
+                focus: True
+                font_size: 50
+                multiline: False
+
+        Button:
+            text: 'Generate'
+            font_size: 50
+            text_size: self.size
+            halign: 'center'
+            valign: 'middle'
+            on_release: root.set_params()

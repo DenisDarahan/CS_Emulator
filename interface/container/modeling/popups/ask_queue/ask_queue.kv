@@ -1,0 +1,26 @@
+<AskQueue>:
+
+    title: 'Choose queue type'
+    title_size: 60
+
+    size_hint: None, None
+    size: 800, 300
+
+    BoxLayout:
+        padding: 10
+        spacing: 10
+
+        Button:
+            text: 'Algo 2'
+            font_size: 40
+            on_release: root.set_queue('2')
+
+        Button:
+            text: 'Algo 4'
+            font_size: 40
+            on_release: root.set_queue('4')
+
+        Button:
+            text: 'Algo 8'
+            font_size: 40
+            on_release: root.set_queue('8')

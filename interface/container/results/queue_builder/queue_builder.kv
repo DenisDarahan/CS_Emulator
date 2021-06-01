@@ -57,7 +57,15 @@
                 font_size: 55
 
         BoxLayout:
+            ScrollView:
+                do_scroll_y: False
+                do_translation: False
+                size: self.size
 
-            Label:
-                id: queue
-                font_size: 50
+                Label:
+                    id: queue
+                    font_size: 50
+
+                    size_hint_x: None
+                    width: self.texture_size[0]
+                    text_size: None, self.height

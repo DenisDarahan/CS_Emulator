@@ -1,5 +1,6 @@
 from kivy.uix.tabbedpanel import TabbedPanelItem
 from kivy.uix.floatlayout import FloatLayout
+from kivy.uix.textinput import TextInput
 from kivy.uix.label import Label
 from kivy.properties import ObjectProperty
 
@@ -13,6 +14,8 @@ from .popups import ComputerSystemSave, ComputerSystemSaveName, ComputerSystemLo
 class ComputerSystemTab(TabbedPanelItem):
     layout: FloatLayout = ObjectProperty()
     validation: Label = ObjectProperty()
+    smp_processors: TextInput = ObjectProperty()
+    smp_banks: TextInput = ObjectProperty()
 
     processors: list = []
     links: list = []
@@ -39,10 +42,10 @@ class ComputerSystemTab(TabbedPanelItem):
         return new_processor
 
     def validate(self):
-        if self.graph.has_gaps():
-            self.validation.text = '[color=ff0000]Not valid[/color]'
-        else:
-            self.validation.text = '[color=00ff00]Valid[/color]'
+        self.validation.text = '[color=00ff00]Valid[/color]' if self.is_valid() else '[color=ff0000]Not valid[/color]'
+
+    def is_valid(self):
+        return not self.graph.has_gaps()
 
     def remove_processor(self, processor: Processor):
         self.processors.remove(processor)

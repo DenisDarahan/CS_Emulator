@@ -1,0 +1,27 @@
+<StatsResults>:
+    table: stats_table
+
+    size: self.size
+
+    GridLayout:
+        id: stats_table
+        padding: 30
+        spacing: 20
+
+        cols: 1
+        rows: 1
+
+        size:
+            max(self.parent.size[0], 30 * 2 + 300 * self.cols + 20 * (self.cols - 1)), \
+            max(self.parent.size[1], 30 * 2 + 100 * self.rows + 20 * (self.rows - 1))
+        size_hint: None, None
+
+        background_color: (0, 0, 0, 0)
+        background_normal: ''
+
+        canvas.before:
+            Color:
+                rgba: (1, 1, 1, 1)
+            Rectangle:
+                size: self.size
+                pos: self.pos

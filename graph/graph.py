@@ -55,18 +55,27 @@ class Graph:
         self.adj_matrix[dst_node_id][src_node_id] = 1
 
     def add_random_edge(self, min_weight: int, max_weight: int):
-        edges = set((edge.src_node.node_id, edge.dst_node.node_id) for edge in self.edges)
+        edges = [(edge.src_node.node_id, edge.dst_node.node_id) for edge in self.edges]
 
         counter = 0
         while counter < 999:
             src = randint(0, len(self.nodes) - 2)
             dst = randint(src, len(self.nodes) - 1)  # if dst > src cycles cannot be there
-            if src == dst or (src, dst) in edges:
+            if src == dst:
                 counter += 1
                 continue
 
-            self.add_edge(len(self.edges), randint(min_weight, max_weight), src, dst)
+            if (src, dst) in edges:
+                self.edges[edges.index((src, dst))].weight += randint(min_weight, max_weight)
+            else:
+                self.add_edge(len(self.edges), randint(min_weight, max_weight), src, dst)
             break
+
+    def get_edge(self, src: Node, dst: Node) -> Edge:
+        for edge in self.edges:
+            if edge.src_node is src and edge.dst_node is dst:
+                return edge
+        raise ValueError('Edge not found')
 
     def remove_edge(self, edge_id: int):
         edge = self.edges.pop(edge_id)
@@ -106,6 +115,8 @@ class Graph:
 
     def generate(self, n_min_weight: int, n_max_weight: int, nodes_number: int, correlation: float,
                  e_min_weight: int, e_max_weight: int, layout_size: tuple, scale_level: list, directed: bool = True):
+        self.clear()
+
         graph = self._generate(nodes_number, directed)
         levels = self.assign_level(graph.adj)
         nodes_positions = self._generate_positions(levels, layout_size, scale_level)
@@ -120,14 +131,23 @@ class Graph:
         e_max_weight = e_max_weight if e_max_weight is not None else n_max_weight // correlation + e_min_weight
         for src_node_id in graph.adj:
             for dst_node_id in graph.adj[src_node_id]:
-                if (edges_weight - sum(edge.weight for edge in self.edges)) <= 0:
+                current_correlation = round(edges_weight - sum(edge.weight for edge in self.edges))
+                if self.edges and current_correlation < 0:
+                    try:
+                        self.set_edge_weight(edge_id - 1, self.edges[edge_id - 1].weight + current_correlation)
+                    except IndexError:
+                        print(self.edges, edge_id, correlation, current_correlation)
+                        exit(1)
+                    current_correlation = 0
+
+                if current_correlation == 0:
                     return self, scale_level
 
                 self.add_edge(edge_id, randint(e_min_weight, e_max_weight), src_node_id, dst_node_id)
                 edge_id += 1
 
         counter = 0
-        while (edges_weight - sum(edge.weight for edge in self.edges)) > 0 and counter < 5:
+        while (edges_weight - sum(edge.weight for edge in self.edges)) > 0 and counter < 99999:
             self.add_random_edge(e_min_weight, e_max_weight)
             counter += 1
 
@@ -332,3 +352,143 @@ class Graph:
         )
 
         return result
+
+    @staticmethod
+    def count_modeling_params(task_graph, cs_graph, model_results: dict = None, time: int = 1):
+        time = model_results['time'] if model_results else time
+        acc = sum(task.weight for task in task_graph.nodes) / time if time else 1
+        sys_eff = acc / len(cs_graph.nodes)
+        alg_eff = task_graph.critical_path_length() / time
+        return time, acc, sys_eff, alg_eff
+
+    def critical_path_length(self):
+        graph = nx.DiGraph()
+        graph.add_nodes_from([node.node_id for node in self.nodes])
+        graph.add_edges_from([(edge.src_node.node_id, edge.dst_node.node_id) for edge in self.edges])
+        return max([max(paths.values()) for _node, paths in dict(nx.all_pairs_dijkstra_path_length(graph)).items()])
+
+    def shortest_path(self, src: Node, dst: Node):
+        graph = nx.Graph()
+        graph.add_nodes_from([node.node_id for node in self.nodes])
+        graph.add_edges_from([(edge.src_node.node_id, edge.dst_node.node_id) for edge in self.edges])
+        return nx.single_source_dijkstra(graph, src.node_id, dst.node_id)[1]
+
+    def lab_06(self, queue: list, cs, _links_count: int = 1, duplex: bool = False):
+        processors = {proc: {'task': None, 'memory': []} for proc in cs.nodes}  # task = {'task': task, 'start': int}
+        proc_logs = {}  # proc_logs = {task: {'proc': proc, 'start': int}}
+
+        link_queue = []  # link_task = [{(src_proc, dst_proc): task}, {(src_proc, dst_proc): task}]
+        if duplex:
+            link_logs = {(link.src_node, link.dst_node): [] for link in cs.edges}
+            link_logs.update({(link.dst_node, link.src_node): [] for link in cs.edges})
+        else:
+            link_logs = {frozenset([link.src_node, link.dst_node]): [] for link in cs.edges}
+        # link_logs = {(src_proc, dst_proc): [{'src': src_task, 'dst': dst_task, 'start': int, 'end': int}]}
+
+        tick = 0
+
+        # print(*[task.node_id for task in queue])
+
+        while queue or link_queue or any([(processors[p]['task'] or processors[p]['memory']) for p in processors]):
+            # print(f'Tick {tick} :: {[t.node_id for t in queue]}')
+
+            for proc in processors:
+                if processors[proc]['task'] and \
+                        processors[proc]['task']['task'].weight <= tick - processors[proc]['task']['start']:
+                    proc_logs[processors[proc]['task']['task']] = {'proc': proc,
+                                                                   'start': processors[proc]['task']['start']}
+                    # print(f'[+] Task {processors[proc]["task"]["task"].node_id} done')
+                    processors[proc]['task'] = None
+
+            _queue = []
+            while queue:
+                task = queue.pop(0)
+
+                free_processors = [proc for proc in processors if not processors[proc]['task']]
+                if free_processors:
+
+                    try:
+                        next_processor = min(
+                            free_processors,
+                            key=lambda p: sum(
+                                self.get_edge(self.nodes[_src_task_id], task).weight *
+                                len(cs.shortest_path(proc_logs[self.nodes[_src_task_id]]['proc'], p))
+                                for _src_task_id, _is_anc in enumerate(self.adj_matrix[task.node_id][:task.node_id])
+                                if _is_anc
+                            )
+                        )
+
+                    except (KeyError, IndexError):
+                        _queue.append(task)
+
+                    else:
+                        possible_ancestors = self.adj_matrix[task.node_id][:task.node_id]
+                        if not any(possible_ancestors):
+                            processors[next_processor]['task'] = {'task': task, 'start': tick}
+                            # print(f'Task {task.node_id} ({task.weight}) -> Proc: {next_processor.node_id}')
+                            continue
+
+                        for src_task_id, is_anc in enumerate(possible_ancestors):
+                            if is_anc:
+                                path = cs.shortest_path(proc_logs[self.nodes[src_task_id]]['proc'], next_processor)
+                                # path in task can be empty!
+                                link_queue.append({
+                                    'path': [{'link': ((cs.nodes[path[i]], cs.nodes[path[i + 1]]) if duplex else
+                                                       frozenset((cs.nodes[path[i]], cs.nodes[path[i + 1]]))),
+                                              'start': 0}
+                                             for i in range(len(path) - 1)],
+                                    'src': self.nodes[src_task_id], 'dst': task, 'target': next_processor,
+                                    'weight': self.get_edge(self.nodes[src_task_id], task).weight
+                                })
+
+                        # print(f'[Ancestors done] {tick} {task.node_id}')
+                        # print(f'Task {task.node_id} ({task.weight}) -> Link queue: {link_queue[-1]}')
+
+                else:
+                    _queue.append(task)
+            queue = _queue
+
+            _link_queue = []
+            while link_queue:
+                link_task: dict = link_queue.pop(0)
+                # print(link_task)
+
+                if link_task['path'] and link_task['path'][0]['start'] and \
+                        tick - link_task['path'][0]['start'] >= link_task['weight']:
+                    # print(f'[=>] {link_task["src"].node_id} -> {link_task["dst"].node_id} '
+                    #       f'{[n.node_id for n in link_task["path"][0]["link"]]}')
+                    _path = link_task['path'].pop(0)
+                    link_logs[_path['link']].append({
+                        'src': link_task['src'], 'dst': link_task['dst'], 'start': _path['start'], 'end': tick
+                    })
+
+                if not link_task['path']:
+                    if not any([_lt['dst'] == link_task['dst'] for _lt in link_queue + _link_queue]):
+                        processors[link_task['target']]['memory'].append({'task': link_task['dst'], 'start': None})
+                        # print(f'Task {link_task["dst"].node_id} -> Memory Proc: {link_task["target"].node_id}')
+                        # print(f'[To memory] {tick} {link_task["dst"].node_id}')
+                    continue
+
+                _link_queue.append(link_task)
+                if link_task['path'] and not link_task['path'][0]['start'] and \
+                        not any([t['path'][0]['start'] for t in link_queue + _link_queue
+                                 if t['path'] and t['path'][0]['link'] == link_task['path'][0]['link']]):
+                    # print(f'[Start is 0] {tick} {link_task["dst"].node_id}')
+                    link_task['path'][0]['start'] = tick
+            link_queue = _link_queue
+
+            for proc in processors:
+                if not processors[proc]['task'] and processors[proc]['memory']:
+                    processors[proc]['task'] = processors[proc]['memory'].pop(0)
+                    processors[proc]['task']['start'] = tick
+                    # print(f'Task {processors[proc]["task"]["task"].node_id} '
+                    #       f'({processors[proc]["task"]["task"].weight}) -> Proc: {proc.node_id}')
+
+            tick += 1
+            # if tick == 100:
+            #     break
+
+        # print(queue)
+        # print(link_queue)
+        # print(processors)
+        return {'proc': proc_logs, 'link': link_logs, 'time': tick - 1}

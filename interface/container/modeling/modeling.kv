@@ -1,4 +1,5 @@
 #:include interface/container/modeling/model_labels/model_labels.kv
+#:include interface/container/modeling/popups/popups.kv
 
 
 <ModelingTab>:
@@ -72,81 +73,102 @@
             orientation: 'vertical'
             size_hint_x: None
             width: 600 - 6
-            padding: 0, 400
-            spacing: 50
-
-            BoxLayout:
-                padding: 30, 5
-                spacing: 5
-                size_hint_y: 0.35
-
-                Label:
-                    text: 'Links:'
-                    font_size: 40
-
-                TextInput:
-                    id: links_count
-                    input_type: 'number'
-                    input_filter: 'int'
-                    font_size: 40
-                    focus: True
-                    multiline: False
-
-            BoxLayout:
-                padding: 30, 5
-                spacing: 5
-
-                Label:
-                    text: 'I/O proc:'
-                    font_size: 40
-
-                Switch:
-                    id: io_proc
-                    active: False
-
-            BoxLayout:
-                padding: 30, 5
-                spacing: 5
-
-                Label:
-                    text: 'Duplex links:'
-                    font_size: 40
-
-                Switch:
-                    id: links_duplex
-                    active: False
+            padding: 0, 250
+            spacing: 100
 
             BoxLayout:
                 orientation: 'vertical'
-                padding: 30, 15
-                spacing: 20
+                spacing: 10
+                size_hint_y: 0.3
+
+                Button:
+                    text: 'Lab 06 (Algo 5)'
+                    font_size: 40
+                    on_release: root.lab_06()
+
+                Button:
+                    text: 'Lab 07 (Algo 7)'
+                    font_size: 40
+                    on_release: root.lab_07()
+
+            BoxLayout:
+                orientation: 'vertical'
+                spacing: 50
 
                 BoxLayout:
-                    Label:
-                        text: 'Data forwarding:'
-                        font_size: 40
-
-                    Spinner:
-                        id: data_forwarding
-                        size_hint_x: 0.6
-                        text: root.forwarding_type
-                        font_size: 40
-                        values: root.forwarding_types
-                        on_text: root.set_forwarding_type(self.text)
-
-                BoxLayout:
-                    padding: 0, 10
+                    padding: 30, 5
                     spacing: 5
+                    size_hint_y: 0.35
 
                     Label:
-                        text: 'Package size:'
+                        text: 'Links:'
                         font_size: 40
 
                     TextInput:
-                        id: package_size
+                        id: links_count
                         input_type: 'number'
                         input_filter: 'int'
                         font_size: 40
                         focus: True
                         multiline: False
-                        readonly: data_forwarding.text == 'MSG'
+
+                BoxLayout:
+                    padding: 30, 5
+                    spacing: 5
+
+                    Label:
+                        text: 'I/O proc:'
+                        font_size: 40
+
+                    Switch:
+                        id: io_proc
+                        active: False
+
+                BoxLayout:
+                    padding: 30, 5
+                    spacing: 5
+
+                    Label:
+                        text: 'Duplex links:'
+                        font_size: 40
+
+                    Switch:
+                        id: links_duplex
+                        active: False
+
+                BoxLayout:
+                    orientation: 'vertical'
+                    padding: 30, 15
+                    spacing: 20
+
+                    BoxLayout:
+                        size_hint_y: 0.9
+
+                        Label:
+                            text: 'Data forwarding:'
+                            font_size: 40
+
+                        Spinner:
+                            id: data_forwarding
+                            size_hint_x: 0.6
+                            text: root.forwarding_type
+                            font_size: 40
+                            values: root.forwarding_types
+                            on_text: root.set_forwarding_type(self.text)
+
+                    BoxLayout:
+                        padding: 0, 10
+                        spacing: 5
+
+                        Label:
+                            text: 'Package size:'
+                            font_size: 40
+
+                        TextInput:
+                            id: package_size
+                            input_type: 'number'
+                            input_filter: 'int'
+                            font_size: 40
+                            focus: True
+                            multiline: False
+                            readonly: data_forwarding.text == 'MSG'
